@@ -1,0 +1,13 @@
+#include <roytracker/roytracker.hpp>
+
+namespace roytracker {
+
+void RoyTracker::Track()
+{
+  // For each tracking target
+  for (const auto &tracking_objective: tracking_objectives) {
+    // 
+  }
+}
+
+}
