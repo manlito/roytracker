@@ -23,6 +23,14 @@ TEST(Tracker, TwoView) {
   tracker.AddTrackingObjective(tracking_objective);
 
   // Add images to track
-  tracker.AddImage(ROYTRACKER_SAMPLE_IMAGE_00);
+  tracker.SetReferenceImage(ROYTRACKER_SAMPLE_IMAGE_00);
   tracker.AddImage(ROYTRACKER_SAMPLE_IMAGE_01);
+
+  std::vector<TrackingResult> results;
+  tracker.Track(results);
+
+  // For debugging
+  std::string reference_patch_filename =
+      std::string(ROYTRACKER_SAMPLE_OUTPUT_FOLDER) + "/reference_patch.jpg";
+  cv::imwrite(reference_patch_filename, results[0].reference_patch);
 }

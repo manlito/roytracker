@@ -53,12 +53,13 @@ public:
   void SetScaleChange(bool enable);
   // Call SetImages to specify a custom subset of images to match
   void SetImages();
-protected:
   // Typical options for an objective
   TrackingObjectiveOptions options_;
+};
 
-  // Image from where model is obtained
-  size_t reference_image;
+struct TrackingResult {
+  cv::Mat reference_patch;
+  std::vector<std::pair<cv::Mat, double>> resulting_patches;
 };
 
 typedef std::map<size_t, std::pair<double, double>> RoyTrackerResult;
@@ -69,13 +70,16 @@ public:
   void AddImage(std::string filename) {
     images_.push_back(cv::imread(filename));
   }
+  void SetReferenceImage(std::string filename) {
+    reference_image_ = cv::imread(filename);
+  }
 
   // Add tracking targets
   void AddTrackingObjective(const TrackingObjective &tracking_objective) {
     tracking_objectives.push_back(tracking_objective);
   }
 
-  virtual void Track();
+  virtual void Track(std::vector<TrackingResult> &results);
 
   // Utility functions
   void SetKeypointDetector(KeypointDetector detector);
@@ -83,8 +87,13 @@ public:
   void SetDescriptorMatcher(DescriptorMatcher matcher);
   void SetImageAlignmentMethod(ImageAlignmentMethod alignment_method);
 protected:
+  void ComputeDescriptors();
+
   std::vector<TrackingObjective> tracking_objectives;
   std::vector<cv::Mat> images_;
+  std::vector<std::vector<cv::KeyPoint>> keypoints_;
+  std::vector<cv::Mat> descriptors_;
+  cv::Mat reference_image_;
   TrackingOptions options_;
 };
 
