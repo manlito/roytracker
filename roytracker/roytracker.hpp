@@ -57,9 +57,10 @@ public:
   TrackingObjectiveOptions options_;
 };
 
+typedef std::pair<cv::Mat, double> PatchResult;
 struct TrackingResult {
   cv::Mat reference_patch;
-  std::vector<std::pair<cv::Mat, double>> resulting_patches;
+  std::vector<PatchResult> resulting_patches;
 };
 
 typedef std::map<size_t, std::pair<double, double>> RoyTrackerResult;

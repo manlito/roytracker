@@ -10,8 +10,8 @@ TEST(Tracker, TwoView) {
   TrackingObjectiveOptions tracking_options;
   tracking_options.x = 1680;
   tracking_options.y = 1192;
-  tracking_options.width = 90;
-  tracking_options.height = 90;
+  tracking_options.width = 100;
+  tracking_options.height = 100;
   tracking_options.update_scale = false;
   tracking_options.update_orientation = true;
 
@@ -33,4 +33,14 @@ TEST(Tracker, TwoView) {
   std::string reference_patch_filename =
       std::string(ROYTRACKER_SAMPLE_OUTPUT_FOLDER) + "/reference_patch.jpg";
   cv::imwrite(reference_patch_filename, results[0].reference_patch);
+  {
+    size_t result_index = 0;
+    for (const PatchResult &patch_result : results[0].resulting_patches) {
+      std::string result_patch_filename =
+          std::string(ROYTRACKER_SAMPLE_OUTPUT_FOLDER)
+          + "/result_patch_" + std::to_string(result_index) + ".jpg";
+      cv::imwrite(result_patch_filename, patch_result.first);
+      ++result_index;
+    }
+  }
 }
