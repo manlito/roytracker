@@ -69,10 +69,10 @@ public:
   RoyTracker(TrackingOptions options = TrackingOptions()) :
     options_(options) {}
   void AddImage(std::string filename) {
-    images_.push_back(cv::imread(filename));
+    images_.push_back(ReadImage(filename));
   }
   void SetReferenceImage(std::string filename) {
-    reference_image_ = cv::imread(filename);
+    reference_image_ = ReadImage(filename);
   }
 
   // Add tracking targets
@@ -88,6 +88,7 @@ public:
   void SetDescriptorMatcher(DescriptorMatcher matcher);
   void SetImageAlignmentMethod(ImageAlignmentMethod alignment_method);
 protected:
+  cv::Mat ReadImage(std::string filename, bool normalize = true);
   void ComputeDescriptors();
 
   std::vector<TrackingObjective> tracking_objectives;

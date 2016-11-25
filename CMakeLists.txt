@@ -23,7 +23,7 @@ endif()
 
 # Build project
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
-aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/roytracker" ROYTRACKER_SOURCES_LIST)
+file(GLOB_RECURSE ROYTRACKER_SOURCES_LIST "${CMAKE_CURRENT_SOURCE_DIR}/roytracker/*.cpp")
 add_library(roytracker ${ROYTRACKER_SOURCES_LIST} ${RPLY_SOURCES_LIST})
 target_link_libraries(roytracker ${OpenCV_LIBS})
 set(ROYTRACKER_LIBS roytracker ${OpenCV_LIBS})
