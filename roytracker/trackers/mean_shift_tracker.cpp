@@ -28,6 +28,11 @@ void Tracker::setTargetObjectSelection(cv::Rect selection)
   originalWindow = selection;
 }
 
+void Tracker::setTargetObjectCenter(cv::Point2f center)
+{
+  trackingWindowCenter = center;
+}
+
 MeanShiftTracker::MeanShiftTracker() {
   //this->type = MEAN_SHIFT;
   frameSize = cv::Rect(-1, -1, 0, 0);

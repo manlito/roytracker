@@ -33,6 +33,7 @@ public:
   virtual cv::Point2f getObjectCenter();
   virtual void setTargetObject(const cv::Mat &image, cv::Rect selection);
   virtual void setTargetObjectSelection(cv::Rect selection);
+  virtual void setTargetObjectCenter(cv::Point2f center);
 };
 
 class MeanShiftTracker : public Tracker
